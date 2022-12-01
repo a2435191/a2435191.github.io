@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <!--leaflet GeoJSON display-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+</head>
+<style>
+    #map {
+        height: 600px;
+    }
+
+    #slider {
+        width: 50%;
+    }
+</style>
+
+<body>
+    <div id="map"></div>
+    <div>
+        <input type="range" min="0" max="100" step="0.01" class="slider" id="slider" oninput="updateFromSlider()">
+        <button onclick="resetTo2022()">Reset to 2022</button>
+    </div>
+    <div>
+        <text id="sliderLabel"></text>
+        <p></p>
+        <text id="seatsDisplay"></text>
+    </div>
+</body>
+<script>
+    const slider = document.getElementById("slider");
+    const sliderLabel = document.getElementById("sliderLabel");
+    const seatsDisplay = document.getElementById("seatsDisplay");
+
+    var demSeats = 0;
+    const totalSeats = 99;
+
+    const actualStatewideDemMargin = -0.090956;
+
+
+
+
+    const geoJSON = {{ site.data.house_geojson | jsonify }};
+    const votes = {{ site.data.house_votes   | jsonify }};
+
+    var lastTickIsDemSeat = {} // keep track of changing values; only update map lazily
+    for (const districtNumber in votes) {
+        lastTickIsDemSeat[districtNumber] = (votes[districtNumber] > 0);
+    }
+
+
+    var map = L.map('map').setView([44.8, -89.64], 7);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    function calculateAdjustedDemMarginForDistrict(district) {
+        const demMargin = votes[district]; // -0.25
+        const statewideDemMargin = (slider.value - 50) * 2 / 100; // 0.16
+
+        const adjustment = statewideDemMargin - actualStatewideDemMargin; // 0.25
+        const calculatedDemMargin = demMargin + adjustment;
+
+        return calculatedDemMargin;
+    }
+
+
+    function calculateDemSeats() {
+        demSeats = 0;
+        for (const districtNumber in votes) {
+            if (calculateAdjustedDemMarginForDistrict(districtNumber) > 0) {
+                demSeats++;
+            }
+        }
+    }
+
+    function getColorFromMargin(demMargin) {
+        if (demMargin > 0) {
+            return "#0000ff";
+        }
+        return "#ff0000";
+    }
+
+    var districtLayer = L.geoJSON(geoJSON, {
+        style: function (feature) {
+            const id = parseInt(feature.properties.ASM2021);
+            const demMargin = calculateAdjustedDemMarginForDistrict(id);
+
+            var style = {
+                opacity: 0.1,
+                weight: 2,
+                color: getColorFromMargin(demMargin)
+            };
+
+            return style;
+        }
+    });
+    districtLayer.addTo(map);
+
+    function updateMap() {
+        map.eachLayer(layer => {
+            if (layer.id === districtLayer.id) { // get layer matching districtLayer
+                layer.eachLayer?.(district => {
+                    const districtNumber = parseInt(district.feature.properties.ASM2021);
+                    const margin = calculateAdjustedDemMarginForDistrict(districtNumber);
+                    if (lastTickIsDemSeat[districtNumber] === (margin > 0)) {
+                        return; // only update if different
+                    }
+                    lastTickIsDemSeat[districtNumber] = (margin > 0);
+
+                    var style = district.options.style;
+                    style.color = getColorFromMargin(margin);
+                    district.setStyle(style);
+                });
+            }
+        })
+    }
+
+    function updateFromSlider() {
+        sliderLabel.innerHTML = "Democratic two-party vote percentage: " + slider.value + "%";
+        calculateDemSeats();
+        seatsDisplay.innerHTML = "Democratic seats: " + demSeats + " / " + totalSeats + " (" + Math.round(demSeats / totalSeats * 100) + "%)";
+        updateMap();
+    }
+
+    function resetTo2022() {
+        slider.value = 50 + actualStatewideDemMargin / 2.0 * 100;
+        updateFromSlider();
+    }
+    resetTo2022();
+
+</script>
+
+</html>
