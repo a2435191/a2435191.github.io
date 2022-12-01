@@ -38,10 +38,6 @@
     const totalSeats = 99;
 
     const actualStatewideDemMargin = -0.090956;
-
-
-
-
     const geoJSON = {{ site.data.house_geojson | jsonify }};
     const votes = {{ site.data.house_votes   | jsonify }};
 
@@ -49,6 +45,8 @@
     for (const districtNumber in votes) {
         lastTickIsDemSeat[districtNumber] = (votes[districtNumber] > 0);
     }
+
+    slider.value = 50 + actualStatewideDemMargin / 2.0 * 100;
 
 
     var map = L.map('map').setView([44.8, -89.64], 7);
@@ -97,8 +95,8 @@
 
             return style;
         }
-    });
-    districtLayer.addTo(map);
+    }).addTo(map);
+
 
     function updateMap() {
         map.eachLayer(layer => {
@@ -130,7 +128,8 @@
         slider.value = 50 + actualStatewideDemMargin / 2.0 * 100;
         updateFromSlider();
     }
-    resetTo2022();
+
+    updateFromSlider();
 
 </script>
 
