@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 03: Rucksack Reorganization"
+date:   2022-12-02 23:21:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[This problem](https://adventofcode.com/2022/day/3) has us examine each line (rucksack), each half of which represents one compartment. We must find the single letter (item type) that appears one in both compartments and add up their priorities— 1-26 for a-z, 27-62 for A-Z.
+
+```python
+{% include aoc2022/solutions/day03_1.py %}
+```
+
+# Second problem
+All the world-building, while well-written, sometimes masks the actual problem at hand. This question is the exact same as previously, except now we repeat the procedure for every three lines (group of elves).
+
+```python
+{% include aoc2022/solutions/day03_2.py %}
+```
+
+![Day 3 victory](/assets/aoc2022/victory03.png)

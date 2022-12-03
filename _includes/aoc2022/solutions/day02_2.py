@@ -23,4 +23,4 @@ class Solution(BaseSolution):
 
             total_score += win_score + strategy_score
 
-        return total_score
+        return str(total_score)
