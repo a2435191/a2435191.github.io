@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 04: Camp Cleanup"
+date:   2022-12-03 23:36:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Today](https://adventofcode.com/2022/day/4), each line in the input represents two integer ranges (sections) separated by a comma. We are asked to determine how many pairs of sections have one fully contain the other.
+
+While reading the problem description, I thought this might be the [overlapping intervals](https://leetcode.com/problems/merge-intervals/) problem. That would have been quite the difficulty spike compared to yesterday's problems!
+
+```python
+{% include aoc2022/solutions/day04_1.py %}
+```
+
+I thought about taking a page out of my friend [Connor](https://cmorrey.live/projects#)'s book and writing a super terse, regex-based solution, but I'm still emphasizing readability, at least for now.
+
+
+# Second problem
+I was still holding out hope that the second problem would be a dynamic programming challenge, but we just need to consider intervals that overlap at all now.
+
+```python
+{% include aoc2022/solutions/day04_2.py %}
+```
+
+I do wish Python had better functional programming support; as opposed to having to update a counter myself, it would be nice if I could throw my logic into a count function that takes a predicate. Multi-line anonymous functions would also be great.
+
+![Day 4 victory](/assets/aoc2022/victory04.png)
