@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 05: Supply Stacks"
+date:   2022-12-05 12:46:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+In [today](https://adventofcode.com/2022/day/5)'s problem, we are given an arrangement of stacked characters (crates) and instructions on how to move them via crane. We must determine the order of the crates on the **top** of each stack after following the instructions.
+
+The data structure [most optimum](https://www.cs.utah.edu/~elb/folklore/mel.html) for this problem is a list of lists, with the inner-nested lists functioning as a stack type (fitting). Having established this, we may now write a function, `_extract_initial_state`, to extract the initial state of the problem from the first few lines of the text file by moving column-wise first. Then it is just a simple regex to parse the movement instructions, which take the format `move {quantity of crates} from {start position} to {end position}`.
+
+```python
+{% include aoc2022/solutions/day05_1.py %}
+```
+
+# Second problem
+Now we are told that the crane actually moves all the stacks *in order* as opposed to one at a time, which is just a one line modification:
+```python
+{% include aoc2022/solutions/day05_2.py %}
+```
+
+![Day 5 victory](/assets/aoc2022/victory05.png)
