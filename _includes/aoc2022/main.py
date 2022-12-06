@@ -1,5 +1,5 @@
 if __name__ == "__main__":
-    from solutions.day05_2 import Solution
+    from solutions.day06_2 import Solution
 
-    with open("_includes/aoc2022/inputs/day05_both.txt") as fh:
+    with open("_includes/aoc2022/inputs/day06_both.txt") as fh:
         print(Solution.solve([fh.read()]))

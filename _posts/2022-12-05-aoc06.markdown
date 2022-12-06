@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 06: Tuning Trouble"
+date:   2022-12-06 12:03:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Our communication device](https://adventofcode.com/2022/day/5) is malfunctioning, and we need to find the first four characters in an ASCII string that all differ (the start-of-packet marker), and return the index of the fourth of those characters. 
+
+```python
+{% include aoc2022/solutions/day06_1.py %}
+```
+
+If the substring length were longer, we could make an optimization to advance the index counter `i` past where the first duplicate is found in each loop, but with the four-character substrings it's not necessary.
+
+# Second problem
+We now need to look for fourteen-length markers, with the same procedure as above. Still not enough to optimize our sliding window, though.
+```python
+{% include aoc2022/solutions/day06_2.py %}
+```
+
+![Day 6 victory](/assets/aoc2022/victory06.png)
