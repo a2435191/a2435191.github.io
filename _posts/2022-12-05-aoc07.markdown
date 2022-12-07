@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 07: No Space Left On Device"
+date:   2022-12-06 23:32:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[This](https://adventofcode.com/2022/day/6) is the first algorithmic problem. We are given a newline-delimited list of pseudo-shell instructions (just `ls` and `cd`) and must first sum up the sizes of all directories with greater than `MAX_SIZE = 100_000` bytes. First, we keep track of all the nodes in the tree with a data structure and build up the tree.
+
+```python
+{% include aoc2022/solutions/day07_common.py %}
+```
+
+Then we traverse the tree to find all directories with total size not greater than `MAX_SIZE`. One unused optimization is starting at a leaf node and working up— then any node with running total size greater than `MAX_SIZE` can be skipped.
+
+
+```python
+{% include aoc2022/solutions/day07_1.py %}
+```
+
+Thank God that worked. That was a significant difficulty spike, and I need to get better at working with trees.
+
+# Second problem
+
+Now we must compute the total size of the outermost directory `total_dir_size`, subtract `40_000_000`, find the smallest directory with size at least this number for deletion, and return the size of that directory.
+
+```python
+{% include aoc2022/solutions/day07_2.py %}
+```
+
+Parsing the tree in the first problem was the trickiest part. After that, it was fairly straightforward. I resisted the urge to stay up all night rewriting recursion as beautiful iteration— after all, I don't need to roll my own stack when my machine's call stack works just fine.
+
+![Day 7 victory](/assets/aoc2022/victory07.png)
+
+It's 4:19 AM here and I have class tomorrow. I'm going to bed.
