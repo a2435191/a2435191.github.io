@@ -2,7 +2,7 @@
 
 from typing import NewType
 
-Node = NewType("Node")  # just so type hints work
+Node = NewType("Node", object)  # just so type hints work
 
 
 class Node:
