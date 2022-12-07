@@ -1,8 +1,8 @@
 # day07_common.py
 
-from typing import TypeVar
+from typing import NewType
 
-Node = TypeVar("Node")  # just so type hints work
+Node = NewType("Node")  # just so type hints work
 
 
 class Node:
