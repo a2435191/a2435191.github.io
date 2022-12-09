@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 08: Treetop Tree House"
+date:   2022-12-08 17:19:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Our expedition](https://adventofcode.com/2022/day/8) must build a treehouse with sufficient tree cover. Our puzzle input is a matrix of tree heights, and we are asked to return how many trees are blocked from view by other trees— that is, how many trees have the property that traversing left, right, up, or down from the tree will encounter a taller tree. 
+
+Since our input is `99 x 99`, it's crucial that our time complexity doesn't get out of hand. To do this, we move along each row/column in one direction, keeping track of the `max_height_so_far`. If the current tree height is greater than `max_height_so_far`, it is visible, so we store the position in a hashset to avoid over-counting tree heights visible from multiple directions. Then we repeat for all other directions. This gives a time complexity of `O(n)` for each row/column pass, so `O(n^2)` in total.
+
+```python
+{% include aoc2022/solutions/day08_1.py %}
+```
+# Second problem
+
+
+```python
+{% include aoc2022/solutions/day08_2.py %}
+```
+Now we must multiply together the number of trees we can see in each direction. This is done by brute force (`O(n^3)`), although there is probably a better way.
+
+![Day 8 victory](/assets/aoc2022/victory08.png)

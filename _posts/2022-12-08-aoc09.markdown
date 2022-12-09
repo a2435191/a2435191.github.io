@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 09: Rope Bridge"
+date:   2022-12-08 23:48:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+Instead of another algorithm problem, [today](https://adventofcode.com/2022/day/9)'s is a modeling problem. Given an instruction line `{direction} {distance}`, where `direction` is one of `L` (left), `R` (right), `U` (up), and `D` (down), we must move the head and tail of a rope on a grid, with the tail following the head as closely as possible (adjacent, diagonal, or overlapping). We must count how many positions the tail visits at least once. We arbitrarily start the head and tail at the origin.
+```python
+{% include aoc2022/solutions/day09_1.py %}
+```
+
+
+# Second problem
+Now we extend our rope to have ten links, with each part of the rope following the earlier adjacent part as before. Although it's not really made clear in the problem, the rope links' movements are calculated every timestep, *not* all at once after the head moves. (I guess this makes sense from a physics simulation view, but the latter was slightly easier to implement so I tried that first.)
+
+```python
+{% include aoc2022/solutions/day09_2.py %}
+```
+
+![Day 9 victory](/assets/aoc2022/victory09.png)
