@@ -6,7 +6,7 @@ categories: adventofcode22
 ---
 
 # Introduction
-I'm beginning a new series in which I solve Advent of Code programming challenge problems using the Python standard library. All code is available on [this page's repo](https://www.github.com/a2435191).
+I'm beginning a new series in which I solve Advent of Code programming challenge problems using the Python standard library. All code is available on [this page's repo](https://github.com/a2435191/a2435191.github.io).
 
 Last year, I got through all but five or so of the problems in C#, and with a year of practice under my belt I would like to go for a perfect fifty stars.
 
