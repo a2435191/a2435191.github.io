@@ -4,16 +4,19 @@ from BaseSolution import BaseSolution
 class Solution(BaseSolution):
     @classmethod
     def solve(cls, inputs: list[str]) -> str:
+        SCREEN_WIDTH = 40
+        SCREEN_HEIGHT = 6
+
         cycle = 0
         register_x = 1
         
-        screen = [['' for _ in range(40)] for _ in range(6)] 
+        screen = [['' for _ in range(SCREEN_WIDTH)] for _ in range(SCREEN_HEIGHT)] 
 
         def increment_cycle() -> None:
             nonlocal cycle
 
-            x_pos = cycle % 40
-            y_pos = (cycle // 40) % 6
+            x_pos = cycle % SCREEN_WIDTH
+            y_pos = (cycle // SCREEN_WIDTH) % SCREEN_HEIGHT
 
             if register_x - 1 <= x_pos <= register_x + 1:
                 screen[y_pos][x_pos] = '#'
