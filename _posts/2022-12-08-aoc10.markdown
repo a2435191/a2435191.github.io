@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 10: Cathode-Ray Tube"
+date:   2022-12-10 03:22:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+We have [another simulation problem](https://adventofcode.com/2022/day/10) today. There are two assembly instructions: `noop`, which takes one cycle and does nothing, and `addx n` which takes two cycles to increment register `X` by `n`. We must determine the sum of the cycle number multiplied by the value of `X` (the signal strength) for cycles numbered `20`, `60`, `100`, `140`, and so on. The trickiest consideration is making sure those "special" cycles are considered in the *middle* of the `addx` operation (see the `increment_cycle` function).
+```python
+{% include aoc2022/solutions/day10_1.py %}
+```
+
+# Second problem
+This problem is my favorite so far. We simulate a `6 x 40` CRT monitor; if a three-pixel-wide area around x position corresponding to the `X` register value (zero-indexed) contains the pixel being drawn, which goes left-to-right and then top-to-bottom, then we write a lit pixel (`#`); otherwise, a dark pixel (`.`) is drawn. We then have to report what letters are displayed on the screen.
+
+Now `increment_cycle` takes care of updating the screen, which we represent with a 2D array. I'm not writing an ASCII art parser for this problem, but I want to follow the function signature (returning a string), so I'll just print the "screen" to console and have the user determine what the letters are and write them to standard input.
+
+```python
+{% include aoc2022/solutions/day10_2.py %}
+```
+
+![Day 10 victory](/assets/aoc2022/victory10.png)
