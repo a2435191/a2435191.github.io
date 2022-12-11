@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 11: Monkey in the Middle"
+date:   2022-12-11 12:28:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Another state machine/simulation problem](https://adventofcode.com/2022/day/11)— three in a row! That's alright, I like these. Our input is several blocks like the following, divided by double newlines:
+```
+Monkey 0:
+  Starting items: 79, 98
+  Operation: new = old * 19
+  Test: divisible by 23
+    If true: throw to monkey 2
+    If false: throw to monkey 3
+```
+
+Each monkey takes a turn in a round to inspect an item, the `worry` of which starts at the value listed in `Starting items`. Then the `Operation` is applied, and worry is `floordiv`-ed by three. The `Test` determines which monkey each item is thrown to.
+
+We must return the number of items the two most prolific monkeys interact with, multiplied together.
+
+To simulate this process, we must first write a (crude) parser to extract the initial state. This is put in a common file because I suspect we will need it in the second problem as well.
+```python
+{% include aoc2022/solutions/day11_common.py %}
+```
+
+```python
+{% include aoc2022/solutions/day11_1.py %}
+```
+
+# Second problem
+
+This time, we don't `floordiv` by 3 after every round, and there are 10,000 rounds. Unfortunately, this leads to absolutely *massive* values for each `worry`, which take a long time to do arithmetic on. Since the only thing that changes the flow of the state machine is the divisiblity test, we need to find some function `f(n)` that significantly shrinks `n` and is invariant under the modulo operation of linear combinations of `n`— that is, `f(a * n + b) % k == (a * n + b) % k`. One such function is taking the modulus of `n` and `k` (since `n % k < k`, in `(n % k) % k` the second `% k` has no effect, so it equals `n % k`). But there are multiple values of `k`, with each `k` representing one of the divisibility test divisors. Therefore, our `modulus` is just the least common multiple of all of the divisibility test divisors.
+```python
+{% include aoc2022/solutions/day11_2.py %}
+```
+
+![Day 11 victory](/assets/aoc2022/victory11.png)
