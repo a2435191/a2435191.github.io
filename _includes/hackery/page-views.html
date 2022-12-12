@@ -1,0 +1,75 @@
+<html>
+
+<head>
+
+</head>
+<style>
+    #text {
+        font-size: 30px;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div id="text">
+    </div>
+</body>
+<script>
+    const FORMS_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf-N6QAzGM6LLO7EGXgvFNZeqNQL-umKLMrIpR_jn1teo5gqQ/formResponse";
+    const headers = {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "accept-language": "en-US,en;q=0.9",
+        "cache-control": "max-age=0",
+        "content-type": "application/x-www-form-urlencoded",
+        "sec-ch-ua-wow64": "?0",
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-user": "?1"
+    };
+
+    function updateViewCount(pageName, otherMetadata = "") {
+        const datetime = (new Date()).toGMTString();
+        fetch("https://www.cloudflare.com/cdn-cgi/trace")
+            .then(data => data.text())
+            .then(text => {
+                for (line of text.split('\n')) {
+                    if (line.startsWith("ip=")) {
+                        return line.split("ip=")[1];
+                    }
+                }
+            })
+            .then(ip => {
+                const body = new URLSearchParams({
+                    "entry.2073796473": ip,
+                    "entry.885107560": datetime,
+                    "entry.725334916": pageName,
+                    "entry.1097579482": otherMetadata
+                }).toString();
+
+                fetch(FORMS_URL, { "body": body, "method": "POST", "headers": headers, "mode": "no-cors" });
+            });
+    }
+
+    let display = document.getElementById("text");
+    function updateDisplay() {
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/1xyH9pDgp9zkE0nVnggKAIhFUnvDhrg8l1XFMqd5MQF4/export?format=csv&id=1xyH9pDgp9zkE0nVnggKAIhFUnvDhrg8l1XFMqd5MQF4&gid=1433924867";
+        fetch(CSV_URL, { "body": null, "method": "GET", "headers": headers })
+            .then(data => data.text())
+            .then(text => {
+                let [views, uniqueViews] = text.split("\n")[1].split(",");
+                let viewsString = (views == 1) ? "view" : "views";
+                let areString = (uniqueViews == 1) ? "is" : "are";
+                display.innerHTML = `This page has ${views} lifetime ${viewsString}, ${uniqueViews} of which ${areString} unique.`;
+            });
+    }
+
+    window.onload = function () {
+        updateViewCount("page-views.html");
+        updateDisplay();
+        setInterval(updateDisplay, 1500);
+    };
+
+</script>
+
+</html>
