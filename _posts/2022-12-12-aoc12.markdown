@@ -15,7 +15,7 @@ After parsing the input, we use Dijkstra's algorithm to find the shortest distan
 ```
 
 # Second problem
-Now we must find the shortest path from *any* location with elevation `a` to the end square. This significantly increases the running time, so we switch `unvisited` from a hashset to a min heap:
+~~Now we must find the shortest path from *any* location with elevation `a` to the end square. This significantly increases the running time, so we switch `unvisited` from a hashset to a min heap:~~ We can actually find the shortest path by starting at the end square first, which keeps the running time reasonable. Nevertheless, I have kept the solution that does one Dijkstra pass for each starting position. (We could also just put *all* of the starting positions into the `PriorityQueue` and `tentative_distances` at the start.)
 ```python
 {% include aoc2022/solutions/day12_2.py %}
 ```
