@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 12: Hill Climbing Algorithm"
+date:   2022-12-12 04:11:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Today](https://adventofcode.com/2022/day/12) we must climb a hill, the elevation map of which is encoded as a grid of a-z characters (lowest to highest), with (S)tart and (E)nd marked as well. We cannot *increase* our elevation by more than one step per move. We must return the number of steps in the shortest path.
+
+After parsing the input, we use Dijkstra's algorithm to find the shortest distance. For our purposes, `unvisited` as a hashset is adequate, even though it would be more efficient to use a min heap.
+
+```python
+{% include aoc2022/solutions/day12_1.py %}
+```
+
+# Second problem
+Now we must find the shortest path from *any* location with elevation `a` to the end square. This significantly increases the running time, so we switch `unvisited` from a hashset to a min heap:
+```python
+{% include aoc2022/solutions/day12_2.py %}
+```
+
+![Day 12 victory](/assets/aoc2022/victory12.png)
