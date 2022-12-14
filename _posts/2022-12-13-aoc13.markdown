@@ -1,0 +1,45 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 13: Distress Signal"
+date:   2022-12-13 18:25:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Our problem](https://adventofcode.com/2022/day/13) has us determine the sum of the indices of nested lists of integers (packets) that are in the right order. (See the code for what "in the right order" means.) We use the built-in `json` module to parse the input.
+
+```python
+{% include aoc2022/solutions/day13_common.py %}
+```
+```python
+{% include aoc2022/solutions/day13_1.py %}
+```
+
+# Second problem
+Now we need to sort the packets and return the product of the indices of two special packets (`[[2]]` and `[[6]]`). All packets must yield a Boolean value when compared, except when being compared to themselves. (I confirmed this in Python as well.) Therefore, we can use the MergeSort algorithm:
+
+```python
+{% include aoc2022/solutions/day13_2.py %}
+```
+
+(Why not QuickSort? It's harder to write and not much faster  ¯\\_(ツ)_/¯.)
+
+Another way to get `sorted_` is to use Python's built-in sorting algorithm with `cmp_to_key` to convert the comparison function to a key function. But rolling my own is more interesting.
+```python
+# alternatively:
+
+from functools import cmp_to_key
+def compare(left: list[list[list | int]], right: list[list[list | int]]) -> int:
+    comparison = packets_in_order(left, right)
+    if comparison is True: # left < right
+        return -1
+    if comparison is None: # left == right
+        return 0 
+    if comparison is False: # left > right
+        return 1
+    raise
+
+sorted_ = sorted(packets, key=cmp_to_key(compare))
+```
+
+![Day 13 victory](/assets/aoc2022/victory13.png)
