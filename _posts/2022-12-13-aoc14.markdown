@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 14: Regolith Reservoir"
+date:   2022-12-14 04:59:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Another state machine](https://adventofcode.com/2022/day/14) problem today has us analyze the path of falling sand among rock structures. Sand pixels try to move straight down, then down-left, then down-right. What stuck out to me when first reading the problem was how to determine our end condition, when sand starts "flowing into the abyss below." We keep a map of the x coordinate to the lowest (*largest* y-coordinate) rocks at that condition; then seeing if a piece of sand is falling forever is as simple as checking the value of the map at the x-coordinate of the sand pixel against the y-coordinate of the sand. Until then, we just count how much sand has come to rest.
+
+Perhaps I'm getting ahead of myself here. We first need to parse the rock structures in the input, which follow horizontal and vertical lines whose endpoints are separated by ` -> ` in each rock structure (line of input).
+
+```python
+{% include aoc2022/solutions/day14_common.py %}
+```
+```python
+{% include aoc2022/solutions/day14_1.py %}
+```
+
+# Second problem
+The second problem introduces a floor two units below the lowest y-value— thankfully we already have an easy way of computing that. We must now run the simulation until the sand blocks the entrance hole at `(500, 0)`. Thankfully, this requires minimal change to the code from the first problem.
+
+```python
+{% include aoc2022/solutions/day14_2.py %}
+```
+
+(I took the liberty of changing the first problem's inner loop to be more concise, but I'm not sure if I like the readability that resulted, so I kept it verbose in the second one.)
+
+![Day 14 victory](/assets/aoc2022/victory14.png)
