@@ -1,0 +1,47 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 15: Beacon Exclusion Zone"
+date:   2022-12-15 13:36:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+Like last year, [today](https://adventofcode.com/2022/day/15) we have another problem that involves beacons. 
+
+We need to figure out how many coordinates with `y == ROW = 2000000` cannot have a beacon, using the fact that sensors (our puzzle input) always report the closest beacon. After finding all of the x-coordinate intervals, it's just an application of the [overlapping intervals problem](https://leetcode.com/problems/merge-intervals/).
+
+```python
+{% include aoc2022/solutions/day15_1.py %}
+```
+
+# Second problem
+Now we need to apply the same approach to a 2D region and return a function of the coordinate of the only place that a beacon can exist. 
+
+A naive approach would look like this, which is what I wrote when trying to get a feel for the problem.
+```python
+for line in inputs[0].splitlines():
+    sensor_x, sensor_y, closest_beacon_x, closest_beacon_y = \
+        [int(n) for n in cls._INPUT_REGEX.match(line).groups()] 
+    
+
+    distance = abs(closest_beacon_y - sensor_y) + abs(closest_beacon_x - sensor_x)
+
+    for x in range(sensor_x - distance, sensor_x + distance + 1):
+        y_distance = distance - abs(x - sensor_x)
+        for y in range(sensor_y - y_distance, sensor_y + y_distance + 1):
+            cannot_exist_points.add((x, y))
+
+
+for x in range(MIN_X, MAX_X + 1):
+    for y in range(MIN_Y, MAX_Y + 1):
+        if ((x, y)) not in cannot_exist_points:
+            return str(x * 4000000 + y)
+```
+
+
+After messing about with 45-degree change-of-basis rotations, GIS algorithms to intersect rectangles, and too little sleep, I finally did the simplest thing I could think of. It works, but slowly (~20 seconds). Perhaps I will rewrite this in C++ someday, or implement some of the optimizations I can think of, like not iterating over the entire list in `_remove_interval`.
+```python
+{% include aoc2022/solutions/day15_2.py %}
+```
+
+![Day 15 victory](/assets/aoc2022/victory15)
