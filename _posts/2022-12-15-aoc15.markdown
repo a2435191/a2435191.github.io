@@ -45,3 +45,5 @@ After messing about with 45-degree change-of-basis rotations, GIS algorithms to 
 ```
 
 ![Day 15 victory](/assets/aoc2022/victory15)
+
+As usual, the victory message to show I did it (except this one's different because I forgot to grab it when I actually submitted my answer).
