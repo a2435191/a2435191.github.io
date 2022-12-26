@@ -1,0 +1,21 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 16: Proboscidea Volcanium"
+date:   2022-12-19 15:42:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+After a brief hiatus from college finals, we return today to solve [another pathfinding problem](https://adventofcode.com/2022/day/16), this time involving opening valves and walking. The tricky part of this problem is realizing that a valve with flow rate `f` opened at time `t` will release `(30-t)f` total pressure. In this way, we don't have to actually simulate the flow. Since the graph only has 59 nodes in my input, DFS works, as long as we eliminate a huge chunk of the nodes by checking if we can actually get to the maximum score.
+
+```python
+{% include aoc2022/solutions/day16_1.py %}
+```
+
+# Second problem
+Now we can take four minutes to train an elephant friend to operate some of the valves, effectively giving the tree traversal two pointers. I tried several approaches for this problem— the key was caching if a path through the graph had already been completed with a higher combined rate. (I incorporated this into the first problem as well.) It's still fairly slow, but I can think of a few optimizations that I might come back and implement later.
+```python
+{% include aoc2022/solutions/day16_2.py %}
+```
+
+![Day 16 victory](/assets/aoc2022/victory16.png)
