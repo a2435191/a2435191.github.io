@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "Advent of Code 2022 Day 17: Pyroclastic Flow"
+date:   2022-12-25 18:31:00 -0600
+categories: adventofcode22
+---
+
+# First problem
+[Today](https://adventofcode.com/2022/day/17), we return to more simulation problems, this time simulating a sort of Tetris game. It is important to realize that the gas jets, which cause the left and right motion of the falling rocks, do not reset after each rock.
+
+```python
+{% include aoc2022/solutions/day17_common.py %}
+```
+
+```python
+{% include aoc2022/solutions/day17_1.py %}
+```
+
+# Second problem
+Unfortunately, the second problem requires simulating a trillion rocks. The simulation used earlier is simply not up to the task.
+```python
+{% include aoc2022/solutions/day17_2.py %}
+```
+
+![Day 17 victory](/assets/aoc2022/victory17.png)

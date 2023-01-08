@@ -52,4 +52,7 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+
+exclude: [_posts/aoc2022/]
+
 future: true

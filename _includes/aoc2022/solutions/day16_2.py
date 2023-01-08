@@ -1,6 +1,5 @@
 import re
 
-import random
 from collections import defaultdict
 from BaseSolution import BaseSolution
 

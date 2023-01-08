@@ -1,8 +1,6 @@
 import re
 
 from BaseSolution import BaseSolution
-from collections import defaultdict
-
 
 class Solution(BaseSolution):
     _INPUT_REGEX = re.compile(
