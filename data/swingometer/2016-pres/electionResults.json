@@ -1,0 +1,33 @@
+{
+    "optionName": "2016 President",
+    "nationwideData": {
+        "white-nocollege": {
+            "gopVotePct": 69,
+            "turnoutPct": 55
+        },
+        "white-college": {
+            "gopVotePct": 46,
+            "turnoutPct": 72
+        },
+        "black": {
+            "gopVotePct": 8,
+            "turnoutPct": 57
+        },
+        "hispanic": {
+            "gopVotePct": 8,
+            "turnoutPct": 45
+        },
+        "asian-other": {
+            "gopVotePct": 27,
+            "turnoutPct": 46
+        }
+    },
+    "subdivisionData": {
+        "county": {
+            "optionName": "County"
+        },
+        "state": {
+            "optionName": "State"
+        }
+    }
+}

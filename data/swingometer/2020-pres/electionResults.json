@@ -1,0 +1,33 @@
+{
+    "optionName": "2020 President",
+    "nationwideData": {
+        "white-nocollege": {
+            "gopVotePct": 70,
+            "turnoutPct": 50
+        },
+        "white-college": {
+            "gopVotePct": 50,
+            "turnoutPct": 78
+        },
+        "black": {
+            "gopVotePct": 10,
+            "turnoutPct": 57
+        },
+        "hispanic": {
+            "gopVotePct": 12,
+            "turnoutPct": 50
+        },
+        "asian-other": {
+            "gopVotePct": 30,
+            "turnoutPct": 46
+        }
+    },
+    "subdivisionData": {
+        "county": {
+            "optionName": "County"
+        },
+        "state": {
+            "optionName": "State"
+        }
+    }
+}

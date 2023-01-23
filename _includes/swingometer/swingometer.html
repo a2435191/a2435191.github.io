@@ -1,0 +1,451 @@
+<html>
+    <head> </head>
+    <style>
+        .input-group {
+            display: flex;
+        }
+
+        .partisan-slider {
+            width: 90%;
+            accent-color: white;
+            display: inline-block;
+        }
+
+        .partisan-text {
+            display: inline-block;
+            width: 10%;
+        }
+
+        .partisan-slider::-webkit-slider-runnable-track {
+            background: linear-gradient(to right, #0f4392, #dd1717);
+            border-radius: 10px;
+        }
+
+        .turnout-slider {
+            width: 90%;
+            accent-color: white;
+            height: var(--slider-height);
+        }
+
+        .turnout-text {
+            display: inline-block;
+            width: 10%;
+        }
+
+        .turnout-slider::-webkit-slider-runnable-track {
+            background: linear-gradient(to right, black, lightgray);
+            border-radius: 10px;
+        }
+
+        .demographic-label {
+            display: inline;
+        }
+
+        .demographic-turnout {
+            float: right;
+        }
+    </style>
+
+    <body>
+        This interactive seeks to emulate the
+        <a href="https://www.cookpolitical.com/swingometer">Cook Swingometer</a>
+        for counties, as inspired by
+        <a
+            href="https://twitter.com/_fat_ugly_rat_/status/1611871675255255042?s=20&t=8fW_fB__3cNrzBpwO-66NA"
+            >this Tweet</a
+        >.
+
+        <br />
+
+        <label for="race">Previous race:</label>
+        <select id="race" onchange="initializeDataFromInputs()">
+            <!-- <option value="2016-pres">2016 President</option>
+        <option value="2020-pres">2020 President</option> -->
+        </select>
+
+        <label for="demographics">Demographics of year:</label>
+        <select id="demographics" onchange="initializeDataFromInputs()">
+            <!-- <option value="2016-pres">2016</option>
+        <option value="2020-pres">2020</option> -->
+        </select>
+
+        <label for="subdivision">Subdivision:</label>
+        <select id="subdivision" onchange="initializeDataFromInputs()">
+            <option value="state">State</option>
+            <option value="county">County</option>
+        </select>
+
+        <br />
+        <br />
+
+        <div id="sliders">
+            <span>
+                <h3 style="display: inline-block">Demographics</h3>
+                <input type="button" value="Reset" onclick="resetSliders()" />
+            </span>
+
+            <div id="white-nocollege">
+                <div>
+                    <h4 class="demographic-label">
+                        White, non-college graduate
+                    </h4>
+                    <div class="demographic-turnout"></div>
+                </div>
+
+                <label for="white-nocollege-partisan-slider"
+                    >Republican voteshare, %</label
+                >
+                <br />
+                <span class="input-group">
+                    <input
+                        id="white-nocollege-partisan-slider"
+                        class="partisan-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="partisan-text" type="text" />
+                </span>
+                <br />
+                <label for="white-nocollege-turnout"
+                    >Turnout of voting age citizens, %</label
+                >
+                <br />
+                <span class="input-group">
+                    <input
+                        id="white-nocollege-turnout"
+                        class="turnout-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="turnout-text" type="text" />
+                </span>
+            </div>
+            <br />
+            <div id="white-college">
+                <div>
+                    <h4 class="demographic-label">White, college graduate</h4>
+                    <div class="demographic-turnout"></div>
+                </div>
+                <span class="input-group">
+                    <input
+                        class="partisan-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="partisan-text" type="text" />
+                </span>
+                <br />
+                <span class="input-group">
+                    <input
+                        class="turnout-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="turnout-text" type="text" />
+                </span>
+            </div>
+            <br />
+            <div id="black">
+                <div>
+                    <h4 class="demographic-label">Black/African-American</h4>
+                    <div class="demographic-turnout"></div>
+                </div>
+
+                <span class="input-group">
+                    <input
+                        class="partisan-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="partisan-text" type="text" />
+                </span>
+                <br />
+                <span class="input-group">
+                    <input
+                        class="turnout-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="turnout-text" type="text" />
+                </span>
+            </div>
+            <br />
+            <div id="hispanic">
+                <div>
+                    <h4 class="demographic-label">Hispanic/Latino</h4>
+                    <div class="demographic-turnout"></div>
+                </div>
+                <span class="input-group">
+                    <input
+                        class="partisan-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="partisan-text" type="text" />
+                </span>
+                <br />
+                <span class="input-group">
+                    <input
+                        class="turnout-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="turnout-text" type="text" />
+                </span>
+            </div>
+            <br />
+            <div id="asian-other">
+                <div>
+                    <h4 class="demographic-label">Asian/Other</h4>
+                    <div class="demographic-turnout"></div>
+                </div>
+                <span class="input-group">
+                    <input
+                        class="partisan-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="partisan-text" type="text" />
+                </span>
+                <br />
+                <span class="input-group">
+                    <input
+                        class="turnout-slider"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        step="0.1"
+                    />
+                    <input class="turnout-text" type="text" />
+                </span>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        function resetSliders() {}
+
+        function updateDemographicTurnout() {}
+
+        async function initializeDropdownLabels() {
+            const dataDocument = await fetch("/data/swingometer/")
+                .then((response) => response.text())
+                .then((text) =>
+                    new DOMParser().parseFromString(text, "text/html")
+                );
+
+            const baseURL = new URL(
+                "/data/swingometer/",
+                window.location.origin
+            );
+
+            const raceDropdown = document.getElementById("race");
+            const demographicsDropdown =
+                document.getElementById("demographics");
+
+            let raceOptions = [];
+            let demographicsOptions = [];
+
+            let promises = [];
+            for (link of dataDocument.querySelectorAll("td.name > a[href]")) {
+                const folderURL = new URL(link.getAttribute("href"), baseURL);
+
+                function addDropdownLabel(fileName, dropdown, dropdowns) {
+                    return fetch(new URL(fileName, folderURL))
+                        .then((resp) => {
+                            if (resp.ok) {
+                                return resp.json();
+                            }
+                            // ok if 404, sometimes will
+                            // be missing files for a race or demographic
+                            return null;
+                        })
+                        .then((data) => {
+                            if (data === null) {
+                                return;
+                            }
+                            let option = document.createElement("option");
+                            option.text = data.optionName;
+                            option.value = folderURL.href
+                                .split("/")
+                                .reverse()[1];
+                            dropdowns.push(option);
+                        })
+                }
+
+                promises.push(
+                    addDropdownLabel(
+                        "electionResults.json",
+                        raceDropdown,
+                        raceOptions
+                    ),
+                    addDropdownLabel(
+                        "demographics.json",
+                        demographicsDropdown,
+                        demographicsOptions
+                    )
+                );
+            }
+
+            const comparator = (a, b) => a.value.localeCompare(b.value);
+            return Promise.all(promises).then(() => {
+                for (option of raceOptions.sort(comparator)) {
+                    raceDropdown.options.add(option);
+                }
+                for (option of demographicsOptions.sort(comparator)) {
+                    demographicsDropdown.options.add(option);
+                }
+            });
+        }
+
+        for (let slider of document.getElementsByClassName("partisan-slider")) {
+            let box =
+                slider.parentElement.getElementsByClassName("partisan-text")[0];
+            slider.oninput = () => {
+                box.value = slider.value;
+            };
+            box.onchange = () => {
+                slider.value = box.value;
+            };
+        }
+
+        for (let slider of document.getElementsByClassName("turnout-slider")) {
+            let box =
+                slider.parentElement.getElementsByClassName("turnout-text")[0];
+            slider.oninput = () => {
+                box.value = slider.value;
+                updateDemographicTurnout();
+            };
+            box.onchange = () => {
+                slider.value = box.value;
+                updateDemographicTurnout();
+            };
+        }
+
+        async function initializeData(raceYear, demographicsYear, subdivision) {
+            await fetch(`/data/swingometer/${raceYear}/electionResults.json`)
+                .then((response) => response.json())
+                .then((data) => {
+                    resetSliders = () => {
+                        for ([
+                            group,
+                            { gopVotePct, turnoutPct },
+                        ] of Object.entries(data.nationwideData)) {
+                            const partisanSlider = document.querySelector(
+                                `#${group} .partisan-slider`
+                            );
+                            const turnoutSlider = document.querySelector(
+                                `#${group} .turnout-slider`
+                            );
+
+                            partisanSlider.value = gopVotePct;
+                            turnoutSlider.value = turnoutPct;
+
+                            partisanSlider.oninput();
+                            turnoutSlider.oninput();
+                        }
+                    };
+                    resetSliders();
+                });
+
+            return fetch(
+                `/data/swingometer/${demographicsYear}/demographics.json`
+            )
+                .then((response) => response.json())
+                .then((data) => {
+                    const populationData = data.nationwidePopulation;
+
+                    updateDemographicTurnout = () => {
+                        let totalVotesCast = 0;
+                        for (element of document.querySelectorAll(
+                            "#sliders > div"
+                        )) {
+                            let id = element.id;
+                            let slider =
+                                element.getElementsByClassName(
+                                    "turnout-slider"
+                                )[0];
+
+                            totalVotesCast +=
+                                (parseFloat(slider.value) / 100) *
+                                populationData[id];
+                        }
+                        for ([idx, element] of document
+                            .querySelectorAll("#sliders > div")
+                            .entries()) {
+                            let id = element.id;
+                            let turnoutDisplay = element.getElementsByClassName(
+                                "demographic-turnout"
+                            )[0];
+                            let slider =
+                                element.getElementsByClassName(
+                                    "turnout-slider"
+                                )[0];
+
+                            let votesCast =
+                                (parseFloat(slider.value) / 100) *
+                                populationData[id];
+                            let percentOfVotesCast = (
+                                (votesCast / totalVotesCast) *
+                                100
+                            ).toFixed(2);
+                            if (isNaN(percentOfVotesCast)) {
+                                percentOfVotesCast = 0.0;
+                            }
+
+                            if (idx == 0) {
+                                turnoutDisplay.innerHTML = `${percentOfVotesCast}% of all voters`;
+                            } else {
+                                turnoutDisplay.innerHTML = `${percentOfVotesCast}%`;
+                            }
+                        }
+                    };
+                    updateDemographicTurnout();
+                });
+        }
+
+        async function initializeDataFromInputs() {
+            return initializeData(
+                document.getElementById("race").value,
+                document.getElementById("demographics").value,
+                document.getElementById("subdivision").value
+            );
+        }
+
+        async function main() {
+            await initializeDropdownLabels();
+            await initializeDataFromInputs();
+            await updateDemographicTurnout();
+        }
+
+        main();
+    </script>
+</html>
