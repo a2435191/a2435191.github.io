@@ -21,13 +21,5 @@
             "gopVotePct": 30,
             "turnoutPct": 46
         }
-    },
-    "subdivisionData": {
-        "county": {
-            "optionName": "County"
-        },
-        "state": {
-            "optionName": "State"
-        }
     }
 }
