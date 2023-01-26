@@ -54,5 +54,3 @@ exclude:
   - _posts/aoc2022
 
 future: true
-
-permalink: /:categories/:year/:month/:day/:title:output_ext/ # generate index.html for subfolders (e.g. /data)
