@@ -1,5 +1,11 @@
 {
   "optionName": "2020 ACS",
+  "sourceURLs": [
+      "https://www.pewresearch.org/politics/2018/08/09/methodology-94/"
+  ],
+  "sourceCitations": [
+      "Census blah blah"
+  ],
   "demographicDataByCounty": {
     "01001": {
       "white-nocollege": 20388,

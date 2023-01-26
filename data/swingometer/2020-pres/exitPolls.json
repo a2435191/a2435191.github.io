@@ -1,5 +1,11 @@
 {
     "optionName": "2020 President",
+    "sourceURLs": [
+        "https://www.pewresearch.org/politics/2018/08/09/methodology-94/"
+    ],
+    "sourceCitations": [
+        "Pew blah blah", "help"
+    ],
     "nationwideData": {
         "white-nocollege": {
             "gopVotePct": 70,

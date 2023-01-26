@@ -1,5 +1,11 @@
 {
     "optionName": "2016 President",
+    "sourceURLs": [
+        "https://www.pewresearch.org/politics/2018/08/09/methodology-94/", "https://example.com/"
+    ],
+    "sourceCitations": [
+        "Pew blah blah", "help"
+    ],
     "nationwideData": {
         "white-nocollege": {
             "gopVotePct": 69,
