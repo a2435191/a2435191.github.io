@@ -1,30 +1,30 @@
 {
     "optionName": "2016 President",
     "sourceURLs": [
-        "https://www.pewresearch.org/politics/2018/08/09/methodology-94/", "https://example.com/"
+        "https://www.pewresearch.org/politics/2018/08/09/methodology-94/"
     ],
     "sourceCitations": [
         "Pew blah blah", "help"
     ],
     "nationwideData": {
         "white-nocollege": {
-            "gopVotePct": 69,
+            "gopVotePct": 69.57,
             "turnoutPct": 55
         },
         "white-college": {
-            "gopVotePct": 46,
+            "gopVotePct": 40.86,
             "turnoutPct": 72
         },
         "black": {
-            "gopVotePct": 8,
+            "gopVotePct": 6.19,
             "turnoutPct": 57
         },
         "hispanic": {
-            "gopVotePct": 8,
+            "gopVotePct": 29.79,
             "turnoutPct": 45
         },
         "asian-other": {
-            "gopVotePct": 27,
+            "gopVotePct": 35.16,
             "turnoutPct": 46
         }
     }
