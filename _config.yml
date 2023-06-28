@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Data visualization in Python and JS, problem-solving in Rust, Python, Java, and C++.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: Will_J_Bradley
+twitter_username: willesota
 github_username: a2435191
 
 # Build settings
